@@ -1,14 +1,14 @@
-# Awesome NestJS Boilerplate v8
+# Turbo NestJS Boilerplate
 
 [![Awesome NestJS](https://img.shields.io/badge/Awesome-NestJS-blue.svg?longCache=true&style=flat-square)](https://github.com/juliandavidmr/awesome-nestjs)
 
-> This is an ever-evolving, very opinionated architecture and dev environment for new node projects using [NestJS](https://nestjs.com). Questions, feedback, and for now, even bikeshedding are welcome. 😄
+This is a fork of [Awesome NestJS Boilerplate](https://github.com/NarHakobyan/awesome-nest-boilerplate) to support TypeORM with MySQL. Questions, feedback, and for now, even bikeshedding are welcome. 😄
 
 ## Getting started
 
 ```bash
 # 1. Clone the repository or click on "Use this template" button.
-npx degit NarHakobyan/awesome-nest-boilerplate my-nest-app
+npx degit gh repo clone tshewang-rinzin/turbo-nestjs-boilerplate my-nest-app
 
 # 2. Enter your newly-cloned folder.
 cd my-nest-app
