@@ -25,6 +25,7 @@ COPY --from=node_modules node_modules /usr/src/app/node_modules
 
 COPY . /usr/src/app
 
+
 EXPOSE $PORT
 
 CMD [ "yarn", "start:prod" ]

@@ -3,16 +3,18 @@ services:
   app:
     env_file:
       - .env
-    container_name: awesome_nest_boilerplate
+    container_name: turbo_nestjs_boilerplate
     restart: always
     build: .
     ports:
       - "$PORT:$PORT"
     depends_on:
-      - postgres
+      - mariadb
       - redis
+    networks:
+      - mariadb
     links:
-      - postgres
+      - mariadb:mariadb
 
   redis:
     image: "redis:alpine"
@@ -28,103 +30,98 @@ services:
     depends_on:
       - redis
 
-  postgres:
-    image: postgres
-    container_name: postgres
+  mariadb:
+    image: mariadb
+    container_name: mariadb
     restart: always
+    ports:
+      - "3306:3306"
     environment:
-      POSTGRES_PASSWORD: postgres
-      TZ: 'GMT'
-      PGTZ: 'GMT'
-    ports:
-      - "5432:5432"
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DATABASE: turbo_nestjs_db
     volumes:
-      - /data/postgres:/data/postgres
-    env_file:
-      - .env
+      - 'mariadb_data:/var/lib/mysql'
     networks:
-      - postgres
-  pgadmin:
-    links:
-      - postgres:postgres
-    container_name: pgadmin
-    image: dpage/pgadmin4
-    ports:
-      - "8080:80"
-    volumes:
-      - /data/pgadmin:/root/.pgadmin
-    env_file:
-      - .env
-    networks:
-      - postgres
+      - mariadb
 
-  es01:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.0.0
-    container_name: es01
-    environment:
-      - node.name=es01
-      - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=es02,es03
-      - cluster.initial_master_nodes=es01,es02,es03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - data01:/usr/share/elasticsearch/data
+  adminer:
+    image: adminer
+    restart: always
     ports:
-      - 9200:9200
+      - 8080:8080
     networks:
-      - elastic
-  es02:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.0.0
-    container_name: es02
-    environment:
-      - node.name=es02
-      - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=es01,es03
-      - cluster.initial_master_nodes=es01,es02,es03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - data02:/usr/share/elasticsearch/data
-    networks:
-      - elastic
-  es03:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.0.0
-    container_name: es03
-    environment:
-      - node.name=es03
-      - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=es01,es02
-      - cluster.initial_master_nodes=es01,es02,es03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - data03:/usr/share/elasticsearch/data
-    networks:
-      - elastic
+      - mariadb
 
 volumes:
-  data01:
-    driver: local
-  data02:
-    driver: local
-  data03:
-    driver: local
+  mariadb_data:
 
 networks:
-  postgres:
+  mariadb:
     driver: bridge
-  elastic:
-    driver: bridge
+  # elastic:
+  #   driver: bridge
+  # es01:
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:8.0.0
+  #   container_name: es01
+  #   environment:
+  #     - node.name=es01
+  #     - cluster.name=es-docker-cluster
+  #     - discovery.seed_hosts=es02,es03
+  #     - cluster.initial_master_nodes=es01,es02,es03
+  #     - bootstrap.memory_lock=true
+  #     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+  #   ulimits:
+  #     memlock:
+  #       soft: -1
+  #       hard: -1
+  #   volumes:
+  #     - data01:/usr/share/elasticsearch/data
+  #   ports:
+  #     - 9200:9200
+  #   networks:
+  #     - elastic
+  # es02:
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:8.0.0
+  #   container_name: es02
+  #   environment:
+  #     - node.name=es02
+  #     - cluster.name=es-docker-cluster
+  #     - discovery.seed_hosts=es01,es03
+  #     - cluster.initial_master_nodes=es01,es02,es03
+  #     - bootstrap.memory_lock=true
+  #     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+  #   ulimits:
+  #     memlock:
+  #       soft: -1
+  #       hard: -1
+  #   volumes:
+  #     - data02:/usr/share/elasticsearch/data
+  #   networks:
+  #     - elastic
+  # es03:
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:8.0.0
+  #   container_name: es03
+  #   environment:
+  #     - node.name=es03
+  #     - cluster.name=es-docker-cluster
+  #     - discovery.seed_hosts=es01,es02
+  #     - cluster.initial_master_nodes=es01,es02,es03
+  #     - bootstrap.memory_lock=true
+  #     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+  #   ulimits:
+  #     memlock:
+  #       soft: -1
+  #       hard: -1
+  #   volumes:
+  #     - data03:/usr/share/elasticsearch/data
+  #   networks:
+  #     - elastic
+  # data01:
+  #   driver: local
+  # data02:
+  #   driver: local
+  # data03:
+  #   driver: local
+

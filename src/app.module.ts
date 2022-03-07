@@ -27,7 +27,7 @@ import { SharedModule } from './shared/shared.module';
     TypeOrmModule.forRootAsync({
       imports: [SharedModule],
       useFactory: (configService: ApiConfigService) =>
-        configService.postgresConfig,
+        configService.mysqlConfig,
       inject: [ApiConfigService],
     }),
     I18nModule.forRootAsync({

@@ -56,7 +56,7 @@ export class ApiConfigService {
     return this.getString('FALLBACK_LANGUAGE');
   }
 
-  get postgresConfig(): TypeOrmModuleOptions {
+  get mysqlConfig(): TypeOrmModuleOptions {
     let entities = [
       __dirname + '/../../modules/**/*.entity{.ts,.js}',
       __dirname + '/../../modules/**/*.view-entity{.ts,.js}',
@@ -94,7 +94,7 @@ export class ApiConfigService {
       migrations,
       keepConnectionAlive: !this.isTest,
       dropSchema: this.isTest,
-      type: 'postgres',
+      type: 'mysql',
       name: 'default',
       host: this.getString('DB_HOST'),
       port: this.getNumber('DB_PORT'),
