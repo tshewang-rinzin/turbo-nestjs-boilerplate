@@ -2,7 +2,7 @@
 
 [![Awesome NestJS](https://img.shields.io/badge/Awesome-NestJS-blue.svg?longCache=true&style=flat-square)](https://github.com/juliandavidmr/awesome-nestjs)
 
-This is a fork of [Awesome NestJS Boilerplate](https://tshewang-rinzin.github.io/turbo-nestjs-boilerplate) to support TypeORM with MySQL. Questions, feedback, and for now, even bikeshedding are welcome. 😄
+This is a fork of [Awesome NestJS Boilerplate](https://github.com/NarHakobyan/awesome-nest-boilerplate) to support TypeORM with MySQL. Questions, feedback, and for now, even bikeshedding are welcome. 😄
 
 ## Getting started
 
@@ -90,4 +90,4 @@ This project includes a `docs` folder with more details on:
 
 For help, discussion about best practices, or any other conversation that would benefit from being searchable:
 
-[Discuss Awesome NestJS Boilerplate on GitHub](https://tshewang-rinzin.github.io/turbo-nestjs-boilerplate/discussions)
+[Discuss Awesome NestJS Boilerplate on GitHub](https://github.com/tshewang-rinzin/turbo-nestjs-boilerplate/discussions)
