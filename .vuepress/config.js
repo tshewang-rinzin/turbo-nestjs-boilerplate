@@ -2,7 +2,7 @@ module.exports = {
   lang: "en-US",
   title: "Turbo NestJS Boilerplate Documentation 🎉",
   description: "An ultimate and awesome nodejs boilerplate wrote in typescript",
-  Ibase:
+  base:
     process.env.DEPLOY_ENV === "gh-pages" ? "/turbo-nestjs-boilerplate/" : "/",
   themeConfig: {
     sidebar: [

@@ -2,7 +2,7 @@
 
 [![Awesome NestJS](https://img.shields.io/badge/Awesome-NestJS-blue.svg?longCache=true&style=flat-square)](https://github.com/juliandavidmr/awesome-nestjs)
 
-This is a fork of [Awesome NestJS Boilerplate](https://github.com/NarHakobyan/awesome-nest-boilerplate) to support TypeORM with MySQL. Questions, feedback, and for now, even bikeshedding are welcome. 😄
+This is a fork of [Awesome NestJS Boilerplate](https://tshewang-rinzin.github.io/turbo-nestjs-boilerplate) to support TypeORM with MySQL. Questions, feedback, and for now, even bikeshedding are welcome. 😄
 
 ## Getting started
 
@@ -82,12 +82,12 @@ And you will see the generated file in `dist` that ready to be served.
 
 This project includes a `docs` folder with more details on:
 
-1.  [Setup and development](https://narhakobyan.github.io/awesome-nest-boilerplate/docs/development.html#first-time-setup)
-1.  [Architecture](https://narhakobyan.github.io/awesome-nest-boilerplate/docs/architecture.html)
-1.  [Naming Cheatsheet](https://narhakobyan.github.io/awesome-nest-boilerplate/docs/naming-cheatsheet.html)
+1.  [Setup and development](https://tshewang-rinzin.github.io/turbo-nestjs-boilerplate/docs/development.html#first-time-setup)
+1.  [Architecture](https://tshewang-rinzin.github.io/turbo-nestjs-boilerplate/docs/architecture.html)
+1.  [Naming Cheatsheet](https://tshewang-rinzin.github.io/turbo-nestjs-boilerplate/docs/naming-cheatsheet.html)
 
 ## Community
 
 For help, discussion about best practices, or any other conversation that would benefit from being searchable:
 
-[Discuss Awesome NestJS Boilerplate on GitHub](https://github.com/NarHakobyan/awesome-nest-boilerplate/discussions)
+[Discuss Awesome NestJS Boilerplate on GitHub](https://tshewang-rinzin.github.io/turbo-nestjs-boilerplate/discussions)
