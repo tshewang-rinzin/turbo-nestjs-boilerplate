@@ -2,66 +2,64 @@ version: "3"
 services:
   app:
     env_file:
-      - .env.docker
+      - ./.env.docker
     container_name: ${APP_CONTAINER_NAME}
     restart: always
     build: .
     ports:
       - "${PORT}:${PORT}"
     depends_on:
-      - mariadb
+      - db
       - redis
     networks:
-      - mariadb
+      - turbo_nest
     links:
-      - mariadb:mariadb
+      - db:db
 
   redis:
     image: "redis:alpine"
     container_name: ${REDIS_CONTAINER_NAME}
     ports:
-      - "${REDIS_PORT}:${REDIS_PORT}"
+      - "${REDIS_PORT}:6379"
 
   redis-commander:
     image: rediscommander/redis-commander:latest
-    container_name: ${REDIS_CONTAINER_NAME}
     environment:
-      - REDIS_HOSTS=local:redis:${REDIS_PORT}
+      - REDIS_HOSTS=local:redis:6379
     ports:
-      - "${REDIS_COMMANDER_PORT}:${REDIS_COMMANDER_PORT}"
+      - "8081:8081"
     depends_on:
       - redis
 
-  mariadb:
+  db:
     image: mariadb
     container_name: ${DB_CONTAINER_NAME}
     restart: always
     ports:
-      - "${DB_PORT}:{DB_PORT}"
+      - "${DB_PORT}:3306"
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_USER: ${DB_USER}
+      MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_DATABASE}
     volumes:
-      - 'mariadb_data:/var/lib/mysql'
+      - 'db_data:/var/lib/mysql'
     networks:
-      - mariadb
+      - turbo_nest
 
   adminer:
     image: adminer
-    container_name: ${ADMINER_CONTAINER_NAME}
     restart: always
     ports:
-      - ${ADMINER_PORT}:${ADMINER_PORT}
+      - 8080:8080
     networks:
-      - mariadb
+      - turbo_nest
 
 volumes:
-  mariadb_data:
+  db_data:
 
 networks:
-  mariadb:
+  turbo_nest:
     driver: bridge
   # elastic:
   #   driver: bridge
