@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { InjectConnection } from '@nestjs/typeorm';
 import type {
   ValidationArguments,
   ValidationOptions,
@@ -7,13 +6,11 @@ import type {
 } from 'class-validator';
 import { registerDecorator, ValidatorConstraint } from 'class-validator';
 import type { EntitySchema, FindConditions, ObjectType } from 'typeorm';
-import { Connection } from 'typeorm';
+import { getRepository } from 'typeorm';
 
 @Injectable()
 @ValidatorConstraint({ name: 'unique', async: true })
 export class UniqueValidator implements ValidatorConstraintInterface {
-  constructor(@InjectConnection() private readonly connection: Connection) {}
-
   public async validate<E>(
     value: string,
     args: IUniqueValidationArguments<E>,
@@ -21,7 +18,7 @@ export class UniqueValidator implements ValidatorConstraintInterface {
     const [entityClass, findCondition = args.property] = args.constraints;
 
     return (
-      (await this.connection.getRepository(entityClass).count({
+      (await getRepository(entityClass).count({
         where:
           typeof findCondition === 'function'
             ? findCondition(args)
