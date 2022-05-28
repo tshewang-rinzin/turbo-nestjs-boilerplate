@@ -11,6 +11,9 @@ export class PageOptionsDto {
   })
   readonly order: Order = Order.ASC;
 
+  @StringFieldOptional()
+  readonly orderBy?: string;
+
   @NumberFieldOptional({
     minimum: 1,
     default: 1,
@@ -24,10 +27,10 @@ export class PageOptionsDto {
     default: 10,
     int: true,
   })
-  readonly take: number = 10;
+  readonly perPage: number = 10;
 
   get skip(): number {
-    return (this.page - 1) * this.take;
+    return (this.page - 1) * this.perPage;
   }
 
   @StringFieldOptional()
