@@ -165,7 +165,7 @@ QueryBuilder.prototype.searchByString = function (q, columnNames) {
   this.andWhere(
     new Brackets((qb) => {
       for (const item of columnNames) {
-        qb.orWhere(`${item} ILIKE :q`);
+        qb.orWhere(`${item} LIKE :q`);
       }
     }),
   );
@@ -180,7 +180,7 @@ SelectQueryBuilder.prototype.paginate = async function (
   options?: Partial<{ takeAll: boolean }>,
 ) {
   if (!options?.takeAll) {
-    this.skip(pageOptionsDto.skip).take(pageOptionsDto.take);
+    this.skip(pageOptionsDto.skip).take(pageOptionsDto.perPage);
   }
 
   const itemCount = await this.getCount();
