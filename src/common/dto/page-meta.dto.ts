@@ -12,7 +12,7 @@ export class PageMetaDto {
   readonly page: number;
 
   @ApiProperty()
-  readonly take: number;
+  readonly perPage: number;
 
   @ApiProperty()
   readonly itemCount: number;
@@ -28,9 +28,9 @@ export class PageMetaDto {
 
   constructor({ pageOptionsDto, itemCount }: IPageMetaDtoParameters) {
     this.page = pageOptionsDto.page;
-    this.take = pageOptionsDto.take;
+    this.perPage = pageOptionsDto.perPage;
     this.itemCount = itemCount;
-    this.pageCount = Math.ceil(this.itemCount / this.take);
+    this.pageCount = Math.ceil(this.itemCount / this.perPage);
     this.hasPreviousPage = this.page > 1;
     this.hasNextPage = this.page < this.pageCount;
   }
