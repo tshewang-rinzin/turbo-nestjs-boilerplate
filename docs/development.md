@@ -34,14 +34,14 @@ yarn install
 
 ### Configuration
 
-Before start install PostgreSQL and fill correct configurations in `.env` file
+Before start install MySQL and fill correct configurations in `.env` file
 
 ```env
 DB_HOST=localhost
-DB_PORT=5432
-DB_USERNAME=postgres
-DB_PASSWORD=postgres
-DB_DATABASE=nest_boilerplate
+DB_PORT=3306
+DB_USERNAME=root
+DB_PASSWORD=secret
+DB_DATABASE=turbo_nest_db
 ```
 
 Some helper script to work with database
@@ -120,9 +120,9 @@ PORT=3000 docker-compose up
 Navigate to <http://localhost:8080> and connect to you database with the following configurations
 
 ```text
-host: postgres
-user: postgres
-pass: postgres
+host: db
+user: root
+pass: secret
 ```
 
-create database `nest_boilerplate` and your application fully is ready to use.
+create database `turbo_nest_db` and your application fully is ready to use.

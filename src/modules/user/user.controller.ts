@@ -44,7 +44,7 @@ export class UserController {
   @Auth([RoleType.USER])
   @HttpCode(HttpStatus.OK)
   @ApiPageOkResponse({
-    description: 'Get users list',
+    description: 'Get users',
     type: PageDto,
   })
   getUsers(

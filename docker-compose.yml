@@ -2,24 +2,25 @@ version: "3"
 services:
   app:
     env_file:
-      - .env
-    container_name: turbo_nestjs_boilerplate
+      - ./.env.docker
+    container_name: ${APP_CONTAINER_NAME}
     restart: always
     build: .
     ports:
-      - "$PORT:$PORT"
+      - "${PORT}:3000"
     depends_on:
-      - mariadb
+      - db
       - redis
     networks:
-      - mariadb
+      - turbo_nest
     links:
-      - mariadb:mariadb
+      - db:db
 
   redis:
     image: "redis:alpine"
+    container_name: ${REDIS_CONTAINER_NAME}
     ports:
-      - "6379:6379"
+      - "${REDIS_PORT}:6379"
 
   redis-commander:
     image: rediscommander/redis-commander:latest
@@ -30,21 +31,21 @@ services:
     depends_on:
       - redis
 
-  mariadb:
+  db:
     image: mariadb
-    container_name: mariadb
+    container_name: ${DB_CONTAINER_NAME}
     restart: always
     ports:
-      - "3306:3306"
+      - "${DB_PORT}:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: secret
-      MYSQL_USER: root
-      MYSQL_PASSWORD: secret
-      MYSQL_DATABASE: turbo_nestjs_db
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
     volumes:
-      - 'mariadb_data:/var/lib/mysql'
+      - 'db_data:/var/lib/mysql'
     networks:
-      - mariadb
+      - turbo_nest
 
   adminer:
     image: adminer
@@ -52,13 +53,13 @@ services:
     ports:
       - 8080:8080
     networks:
-      - mariadb
+      - turbo_nest
 
 volumes:
-  mariadb_data:
+  db_data:
 
 networks:
-  mariadb:
+  turbo_nest:
     driver: bridge
   # elastic:
   #   driver: bridge
